@@ -56,19 +56,19 @@ function heartDelivery(input) {
 // ]);
 //==============================================================
 function val(input) {
-  let neigb = input.shift().split("@").map(Number);
+  let neighborhood = input.shift().split("@").map(Number);
 
+  let lastPosition = [];
   let next = 0;
-  let position = [];
   while (input[0] != "Love!") {
-    let [_, index] = input.shift().split(" ");
-    index = Number(index);
-    next += index;
-    if (next > neigb.length - 1) {
+    let [_, current] = input.shift().split(" ");
+    current = Number(current);
+    next += current;
+    if (next > neighborhood.length - 1) {
       next = 0;
     }
-    neigb[next] -= 2;
-    let house = neigb[next];
+    neighborhood[next] -= 2;
+    let house = neighborhood[next];
 
     if (house == 0) {
       console.log(`Place ${next} has Valentine's day.`);
@@ -76,10 +76,10 @@ function val(input) {
     if (house < 0) {
       console.log(`Place ${next} already had Valentine's day.`);
     }
-    position.push(next);
+    lastPosition.push(next);
   }
-  console.log(`Cupid's last position was ${position.pop()}.`);
-  let filtered = neigb.filter((x) => x > 0);
+  console.log(`Cupid's last position was ${lastPosition.pop()}.`);
+  let filtered = neighborhood.filter((x) => x > 0);
 
   if (filtered.length > 0) {
     console.log(`Cupid has failed ${filtered.length} places.`);
@@ -143,4 +143,4 @@ console.log(tokens);
   }
 }
 
-  solve(['10@10@10@2', 'Jump 1', 'Jump 2', 'Love!']);
+  // solve(['10@10@10@2', 'Jump 1', 'Jump 2', 'Love!']);
