@@ -28,21 +28,12 @@ function string(input) {
   }
   function incl(line) {
     let str = line[1];
-    if (text.includes(str)) {
-      return "True";
-    } else {
-      return "False";
-    }
+    return text.includes(str) ? "True" : "False";
   }
   function start(line) {
     let substr = line[1];
     let substrText = text.slice(0, substr.length);
-
-    if (substr == substrText) {
-      return "True";
-    } else {
-      return "False";
-    }
+    return substr == substrText ? "True" : "False";
   }
   function lower(line) {
     return (text = text.toLowerCase());
