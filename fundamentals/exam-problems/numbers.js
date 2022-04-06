@@ -15,10 +15,10 @@ function numbers(input) {
     .join(" ");
 
     result.length > 0 ? console.log(forPrint) : console.log("No")
+}
 
 // numbers('10 20 30 40 50');
 numbers("-1 -2 -3 -4 -5 -6");
-
 
 
 // ======= OR:
