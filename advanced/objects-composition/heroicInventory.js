@@ -4,7 +4,7 @@ function heroicInventory(input) {
     for (const data of input) {
       let [name, level, itemData] = data.split(" / ");
       level = Number(level);
-      let items = itemData == undefined ? [] : itemData.split(", ");
+      let items = itemData != undefined ? itemData.split(", ") : [];
       result.push({ name, level, items });
     }
   
