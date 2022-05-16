@@ -1,2 +1,2 @@
 # SoftUni-Problems-Solved
-Some problems solved by me during my study at SoftUni.
+Most of the problems solved during my study at SoftUni.
