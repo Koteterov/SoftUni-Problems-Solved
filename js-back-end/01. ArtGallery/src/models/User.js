@@ -3,15 +3,16 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
+    required:  [true, "Username must be filled in!"],
+    unique: true,  
   },
   password: {
     type: String,
-    required: true,
+    required: [true, "Password is required!"]
   },
   address: {
     type: String,
-    required: true,
+    required: [true, "Address field is required!"]
   },
 
   myPublications: [

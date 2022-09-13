@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { isGuest } = require("../middlewares/guardMiddlewares");
 
 
 router.get("/", (req, res) => {
@@ -6,12 +7,12 @@ router.get("/", (req, res) => {
     res.render("gallery");
 });
 
-router.get("/details", (req, res) => {
+router.get("/details", isGuest, (req, res) => {
 
     res.render("details")
   });
 
-router.get("/edit", (req, res) => {
+router.get("/edit", isGuest, (req, res) => {
 
     res.render("edit")
   });
