@@ -2,4 +2,8 @@ const mongoose = require("mongoose");
 
 const connectionString = "mongodb://localhost:27017/galleryCollection";
 
-exports.initializeDatabase = () => mongoose.connect(connectionString);
+exports.initializeDatabase = () => {
+  mongoose.connection.on("open", () => console.log("DB is connected"));
+
+  return mongoose.connect(connectionString);
+};

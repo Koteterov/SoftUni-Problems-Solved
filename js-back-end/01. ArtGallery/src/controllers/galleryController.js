@@ -1,33 +1,32 @@
 const router = require("express").Router();
 const { isGuest } = require("../middlewares/guardMiddlewares");
 
+const pictureService = require("../services/pictureService");
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
+  const allPictures = await pictureService.getAll().lean();
 
-    res.render("gallery");
+  res.render("gallery", { allPictures });
 });
 
-router.get("/details", isGuest, (req, res) => {
+router.get("/details/:picId", isGuest, async (req, res) => {
+  try {
+    const picture = await pictureService.getOne(req.params.picId).lean();
 
-    res.render("details")
-  });
+
+    res.render("details", { picture });
+
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 router.get("/edit", isGuest, (req, res) => {
+  res.render("edit");
+});
 
-    res.render("edit")
-  });
+router.get("/delete", (req, res) => {});
 
+router.get("/share", (req, res) => {});
 
-router.get("/delete", (req, res) => {
-
-  });
-
-router.get("/share", (req, res) => {
-
-  });
-
-
-  
 module.exports = router;
-
-

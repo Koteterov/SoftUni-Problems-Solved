@@ -3,7 +3,6 @@ const authService = require("../services/authService");
 
 const { isGuest, isUser } = require("../middlewares/guardMiddlewares");
 
-
 const { SESSION_NAME } = require("../config/constants");
 
 router.get("/register", isUser, (req, res) => {
@@ -11,33 +10,39 @@ router.get("/register", isUser, (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-
   try {
+    if (req.body.password < 3) {
+      throw new Error("Password should be at least 3 characters long!");
+    }
 
-    if (req.body.password != req.body['re-password']) {
+    if (req.body.password != req.body["re-password"]) {
       throw new Error("Passwords don't match!");
     }
 
-    await authService.register(req.body);
+    const createdUser = await authService.register(req.body);
+    let token = await authService.createToken(createdUser);
+
+    if (!token) {
+      throw new Error("Invalid user or password!");
+    }
+    res.cookie(SESSION_NAME, token, { httpOnly: true });
     res.redirect("/");
-
   } catch (error) {
+    const userData = req.body;
 
-    const userData = req.body
-
-    console.log('error', error);
+    console.log("error", error);
 
     if (error.code == 11000) {
-
-    res.status(400).render("auth/register", {userData, error: "This user already exists!"});
-
+      res.status(400).render("auth/register", {
+        userData,
+        error: "This user already exists!",
+      });
     } else {
-
-      res.status(400).render("auth/register", {userData, error: error.message});
+      res
+        .status(400)
+        .render("auth/register", { userData, error: error.message });
     }
-
   }
-
 });
 
 router.get("/login", isUser, (req, res) => {
@@ -46,7 +51,9 @@ router.get("/login", isUser, (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    let token = await authService.login(req.body);
+    let user = await authService.login(req.body);
+    let token = await authService.createToken(user);
+
     if (!token) {
       throw new Error("Invalid user or password!");
     }

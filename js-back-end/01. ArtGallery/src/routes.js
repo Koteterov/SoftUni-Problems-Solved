@@ -11,7 +11,7 @@ const authController = require("./controllers/authController")
 const router = express.Router();
 router.get("/", homeController);
 router.use("/gallery", galleryController);
-router.get("/create", createController);
+router.use("/create", createController);
 router.get("/profile", profileController);
 router.use("/auth", authController)
 
