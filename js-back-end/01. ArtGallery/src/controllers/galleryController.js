@@ -9,20 +9,36 @@ router.get("/", async (req, res) => {
   res.render("gallery", { allPictures });
 });
 
-router.get("/details/:picId", isGuest, async (req, res) => {
+router.get("/details/:picId", async (req, res) => {
   try {
     const picture = await pictureService.getOne(req.params.picId).lean();
+    const isAuthor = req.user?._id == picture.author
 
 
-    res.render("details", { picture });
-
+    res.render("details", { picture, isAuthor });
   } catch (error) {
     console.log(error);
   }
 });
 
-router.get("/edit", isGuest, (req, res) => {
-  res.render("edit");
+router.get("/edit/:picId", isGuest, async (req, res) => {
+  try {
+    const picture = await pictureService.getOne(req.params.picId).lean();
+
+    res.render("edit", { picture });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.post("/edit/:picId", isGuest, async (req, res) => {
+  try {
+    await pictureService.edit(req.params.picId, req.body)
+    
+    res.redirect(`/gallery/details/${req.params.picId}`)
+  } catch (error) {
+    res.status(400).render("edit", { error: error.message });
+  }
 });
 
 router.get("/delete", (req, res) => {});
