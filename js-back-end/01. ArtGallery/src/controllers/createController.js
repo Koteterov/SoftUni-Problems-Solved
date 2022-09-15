@@ -17,7 +17,6 @@ router.post("/", isGuest, async (req, res) => {
     res.redirect("/gallery");
     
   } catch (error) {
-    console.log(error);
 
     res.status(400).render("create", { data, error: error.message });
   }
