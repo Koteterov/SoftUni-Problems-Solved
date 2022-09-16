@@ -6,6 +6,7 @@ const {
 } = require("../middlewares/publicationMiddlewares");
 
 const pictureService = require("../services/pictureService");
+const userService = require("../services/userService");
 
 router.get("/", async (req, res) => {
   const allPictures = await pictureService.getAll().lean();
@@ -81,7 +82,11 @@ router.get("/share/:picId", isGuest, async (req, res) => {
   const picture = await pictureService.getOne(req.params.picId);
   picture.usersShared.push(req.user._id);
 
+  const user = await userService.getOne(req.user._id)
+  user.shares.push(picture)
+
   await picture.save();
+  await user.save();
 
   res.redirect("/");
 });
