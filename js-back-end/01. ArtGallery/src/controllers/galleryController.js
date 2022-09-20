@@ -19,9 +19,9 @@ router.get("/details/:picId", async (req, res) => {
     const picture = await pictureService
       .getOneDetailed(req.params.picId)
       .lean();
-    const isAuthor = req.user?._id == picture.author._id;
+    const isAuthor = req.user?._id == picture.author?._id;
     
-    const isShared = picture.usersShared.some(x => x == req.user._id)
+    const isShared = picture.usersShared.some(x => x == req.user?._id)
 
 
     res.render("details", { picture, isAuthor, isShared });
