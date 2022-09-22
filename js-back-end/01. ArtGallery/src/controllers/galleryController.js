@@ -9,12 +9,14 @@ const pictureService = require("../services/pictureService");
 const userService = require("../services/userService");
 
 router.get("/", async (req, res) => {
+  res.locals.title = "Gallery"
   const allPictures = await pictureService.getAll().lean();
 
   res.render("gallery", { allPictures });
 });
 
 router.get("/details/:picId", async (req, res) => {
+  res.locals.title = "Details"
   try {
     const picture = await pictureService
       .getOneDetailed(req.params.picId)
@@ -36,6 +38,7 @@ router.get(
   preloadPublication,
   isAuthor,
   async (req, res) => {
+    res.locals.title = "Edit"
     try {
       const picture = req.picture;
       res.render("edit", { picture });

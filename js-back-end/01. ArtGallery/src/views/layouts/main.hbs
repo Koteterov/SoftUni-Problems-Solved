@@ -3,7 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Home Page</title>
+    <title>
+        {{#if title}}
+        {{title}}
+        {{else}}
+            Art
+        {{/if}}
+    </title>
 
     <!-- Do not forget to change the path to the css file -->
     <link rel="stylesheet" href="/static/css/style.css">
@@ -12,7 +18,7 @@
 <body>
 
     <div id="box">
-        
+
         {{#if error}}
         <div class="error-box">
             <p>{{error}}</p>

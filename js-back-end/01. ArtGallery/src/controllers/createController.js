@@ -6,6 +6,7 @@ const userService = require("../services/userService");
 const { isGuest } = require("../middlewares/guardMiddlewares");
 
 router.get("/", isGuest, (req, res) => {
+  res.locals.title = "Create"
   res.render("create");
 });
 

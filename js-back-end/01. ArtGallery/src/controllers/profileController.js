@@ -3,6 +3,7 @@ const { isGuest } = require("../middlewares/guardMiddlewares");
 const userService = require("../services/userService");
 
 router.get("/profile", isGuest, async (req, res) => {
+  res.locals.title = "Profile"
   try {
     const user = await userService.getOne(req.user._id).lean();
     const publications = user.myPublications.map((x) => x.title).join(", ");
