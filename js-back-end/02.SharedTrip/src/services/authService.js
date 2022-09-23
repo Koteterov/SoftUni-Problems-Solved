@@ -7,7 +7,7 @@ const { SECTRET, SALT_ROUNDS } = require("../config/constants");
 
 exports.register = async ({ email, password, gender }) => {
 
-  const existingUser = await User.findOne({ email: email });
+  const existingUser = await User.findOne({ email: new RegExp(`^${email}$`, 'i') });
 
 
   if (existingUser) {
