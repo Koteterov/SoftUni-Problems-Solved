@@ -1,28 +1,31 @@
 const router = require("express").Router();
 
-// const pictureService = require("../services/pictureService");
-// const userService = require("../services/userService");
+const tripService = require("../services/tripService");
+const userService = require("../services/userService");
 
 const { isGuest } = require("../middlewares/guardMiddlewares");
+const errorMapper  = require("../util/errorMapper");
 
 router.get("/", (req, res) => {
   res.locals.title = "Offer"
   res.render("trip-create");
 });
 
-// router.post("/", isGuest, async (req, res) => {
-//   const data = req.body
+router.post("/", isGuest, async (req, res) => {
+  const data = req.body
 
-//   try {
-//     const createdPic = await pictureService.create({...data, author: req.user._id});
-//     await userService.addPublication(req.user._id, createdPic)
-
-//     res.redirect("/gallery");
+  
+  try {
+    const createdTrip = await tripService.create({...data, author: req.user._id});
+    await userService.addTrip(req.user._id, createdTrip)
     
-//   } catch (error) {
+    res.redirect("/trip");
+    
+  } catch (err) {
 
-//     res.status(400).render("create", { data, error: error.message });
-//   }
-// });
+    const error = errorMapper(err)
+    res.status(400).render("trip-create", { data, error });
+  }
+});
 
 module.exports = router;

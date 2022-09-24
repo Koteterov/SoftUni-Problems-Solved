@@ -6,15 +6,13 @@ const { isGuest, isUser } = require("../middlewares/guardMiddlewares");
 const { SESSION_NAME } = require("../config/constants");
 
 router.get("/register", isUser, (req, res) => {
-  
-  res.locals.title = "Register"
+  res.locals.title = "Register";
   res.render("auth/register");
 });
 
 router.post("/register", async (req, res) => {
-  
-
   try {
+    
     if (req.body.password < 4) {
       throw new Error("Password should be at least 4 characters long!");
     }
@@ -31,18 +29,15 @@ router.post("/register", async (req, res) => {
     }
     res.cookie(SESSION_NAME, token, { httpOnly: true });
     res.redirect("/");
-
   } catch (error) {
     const userData = req.body;
-    res
-    .status(400)
-    .render("auth/register", { userData, error: error.message });
 
+    res.status(400).render("auth/register", { userData, error: error.message });
   }
 });
 
 router.get("/login", isUser, (req, res) => {
-  res.locals.title = "Login"
+  res.locals.title = "Login";
 
   res.render("auth/login");
 });
@@ -57,7 +52,6 @@ router.post("/login", async (req, res) => {
     }
     res.cookie(SESSION_NAME, token, { httpOnly: true });
     res.redirect("/");
-
   } catch (error) {
     const userData = req.body;
     res.status(400).render("auth/login", { userData, error: error.message });

@@ -14,7 +14,9 @@
 
     {{#if error}}
     <div class="error">
-        <p>{{error}}</p>
+        {{#each error}}
+        <p>{{this}}</p>
+        {{/each}}
     </div>
     {{/if}}
 
