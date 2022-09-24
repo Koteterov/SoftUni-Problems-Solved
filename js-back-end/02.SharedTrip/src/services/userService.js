@@ -1,5 +1,6 @@
 const User = require("../models/User");
 
+exports.getOne = (userId) => User.findById(userId);
 exports.addTrip = async (userId, tripId) => {
   const user = await User.findById(userId);
 
@@ -8,4 +9,4 @@ exports.addTrip = async (userId, tripId) => {
 
   return user;
 };
-
+exports.getDriver = (tripId) => User.findOne({ tripsHistory: tripId });
