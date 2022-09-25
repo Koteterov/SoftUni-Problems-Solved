@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const authService = require("../services/authService");
 
+const validator = require("validator");
+
+
 const { isGuest, isUser } = require("../middlewares/guardMiddlewares");
 
 const { SESSION_NAME } = require("../config/constants");
@@ -12,6 +15,10 @@ router.get("/register", isUser, (req, res) => {
 
 router.post("/register", async (req, res) => {
   try {
+    if (!validator.isEmail(req.body.email)) {
+      throw new Error("Invalid email!");
+    }
+
     if (req.body.password < 4) {
       throw new Error("Password should be at least 4 characters long!");
     }

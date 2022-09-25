@@ -4,10 +4,13 @@ const tripSchema = new mongoose.Schema({
   startPoint: {
     type: String,
     required: [true, "Start Point must be filled in!"],
+    minLength: [4, "Min length is 4 symbols!"]
   },
   endPoint: {
     type: String,
     required: [true, "End Point must be filled in!"],
+    minLength: [4, "Min length is 4 symbols!"]
+
   },
   date: {
     type: String,
@@ -20,22 +23,37 @@ const tripSchema = new mongoose.Schema({
   carImage: {
     type: String,
     required: [true, "Car Image must be filled in!"],
+    validate: {
+      validator: /^https?/,
+      message: "Invalid image url",
+    }
+
   },
   carBrand: {
     type: String,
     required: [true, "Car Brand must be filled in!"],
+    minLength: [4, "Min length is 4 symbols!"]
+
   },
   seats: {
     type: Number,
     required: [true, "Seats must be filled in!"],
+    min: [0, "Min seats is 0!"],
+    max: [4, "Max seats is 4!"],
+
   },
   price: {
     type: Number,
     required: [true, "Price must be filled in!"],
+    min: [1, "Min price is 1!"],
+    max: [50, "Max price is 50!"],
+
   },
   description: {
     type: String,
     required: [true, "Description must be filled in!"],
+    minLength: [10, "Min length is 10 symbols!"]
+
   },
   creator: {
     type: mongoose.Types.ObjectId,
