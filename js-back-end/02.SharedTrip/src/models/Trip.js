@@ -24,7 +24,7 @@ const tripSchema = new mongoose.Schema({
     type: String,
     required: [true, "Car Image must be filled in!"],
     validate: {
-      validator: /^https?/,
+      validator: /^https?:\/\//i,
       message: "Invalid image url",
     }
 
