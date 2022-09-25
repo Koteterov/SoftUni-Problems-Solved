@@ -16,7 +16,7 @@ router.post("/", isGuest, async (req, res) => {
 
   
   try {
-    const createdTrip = await tripService.create({...data, author: req.user._id});
+    const createdTrip = await tripService.create({...data, creator: req.user._id});
     await userService.addTrip(req.user._id, createdTrip)
     
     res.redirect("/trip");

@@ -12,7 +12,6 @@ router.get("/register", isUser, (req, res) => {
 
 router.post("/register", async (req, res) => {
   try {
-    
     if (req.body.password < 4) {
       throw new Error("Password should be at least 4 characters long!");
     }
@@ -29,10 +28,11 @@ router.post("/register", async (req, res) => {
     }
     res.cookie(SESSION_NAME, token, { httpOnly: true });
     res.redirect("/");
-  } catch (error) {
+  } catch (err) {
     const userData = req.body;
+    const error = [err.message];
 
-    res.status(400).render("auth/register", { userData, error: error.message });
+    res.status(400).render("auth/register", { userData, error });
   }
 });
 
@@ -52,9 +52,10 @@ router.post("/login", async (req, res) => {
     }
     res.cookie(SESSION_NAME, token, { httpOnly: true });
     res.redirect("/");
-  } catch (error) {
+  } catch (err) {
     const userData = req.body;
-    res.status(400).render("auth/login", { userData, error: error.message });
+    const error = [err.message];
+    res.status(400).render("auth/login", { userData, error });
   }
 });
 
