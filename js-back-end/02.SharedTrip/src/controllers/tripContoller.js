@@ -4,6 +4,8 @@ const userService = require("../services/userService");
 const tripService = require("../services/tripService");
 const errorMapper = require("../util/errorMapper");
 
+const { isGuest } = require("../middlewares/guardMiddlewares");
+
 router.get("/", async (req, res) => {
   res.locals.title = "Shared";
 
@@ -52,7 +54,7 @@ router.get("/edit/:tripId", async (req, res) => {
   }
 });
 
-router.post("/edit/:tripId", async (req, res) => {
+router.post("/edit/:tripId", isGuest, async (req, res) => {
   try {
     await tripService.edit(req.params.tripId, req.body);
     res.redirect(`/trip/details/${req.params.tripId}`);
@@ -64,7 +66,7 @@ router.post("/edit/:tripId", async (req, res) => {
   }
 });
 
-router.get("/delete/:tripId", async (req, res) => {
+router.get("/delete/:tripId", isGuest, async (req, res) => {
   try {
     await tripService.delete(req.params.tripId);
     res.redirect("/trip");
@@ -73,7 +75,7 @@ router.get("/delete/:tripId", async (req, res) => {
   }
 });
 
-router.get("/join/:tripId", async (req, res) => {
+router.get("/join/:tripId", isGuest, async (req, res) => {
   try {
     await tripService.joinTrip(req.params.tripId, req.user._id);
 
