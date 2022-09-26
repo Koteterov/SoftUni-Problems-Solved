@@ -6,6 +6,8 @@ const errorMapper = require("../util/errorMapper");
 
 const { isGuest } = require("../middlewares/guardMiddlewares");
 
+const {preloadTrip, isAuthor} = require ("../middlewares/tripMiddlewares");
+
 router.get("/", async (req, res) => {
   res.locals.title = "Shared";
 
@@ -44,9 +46,11 @@ router.get("/details/:tripId", async (req, res) => {
   }
 });
 
-router.get("/edit/:tripId", async (req, res) => {
+router.get("/edit/:tripId", preloadTrip, isAuthor, async (req, res) => {
   try {
-    const trip = await tripService.getOne(req.params.tripId).lean();
+    const trip = req.trip
+    // or:
+    // await tripService.getOne(req.params.tripId).lean();
 
     res.render("trip-edit", { trip });
   } catch (error) {
@@ -54,7 +58,7 @@ router.get("/edit/:tripId", async (req, res) => {
   }
 });
 
-router.post("/edit/:tripId", isGuest, async (req, res) => {
+router.post("/edit/:tripId", isGuest, preloadTrip, isAuthor, async (req, res) => {
   try {
     await tripService.edit(req.params.tripId, req.body);
     res.redirect(`/trip/details/${req.params.tripId}`);
@@ -66,7 +70,7 @@ router.post("/edit/:tripId", isGuest, async (req, res) => {
   }
 });
 
-router.get("/delete/:tripId", isGuest, async (req, res) => {
+router.get("/delete/:tripId", isGuest, preloadTrip, isAuthor, async (req, res) => {
   try {
     await tripService.delete(req.params.tripId);
     res.redirect("/trip");
