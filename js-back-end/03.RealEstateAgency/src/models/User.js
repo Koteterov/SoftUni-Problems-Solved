@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
         message: "Invalid name!"
     },
   },
-  username: {
+  email: {
     type: String,
     required: [true, "Username must be filled in!"],
     minLength: [5, "Min length is 5 characters!"],

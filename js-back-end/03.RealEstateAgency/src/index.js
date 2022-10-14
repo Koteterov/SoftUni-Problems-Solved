@@ -3,10 +3,8 @@ const cookieParser = require("cookie-parser");
 
 const routes = require("./routes");
 const { initializeDatabase } = require("./config/database");
-// const { auth } = require("./middlewares/authMiddleware");
-// const { errorHandler } = require("./middlewares/errorMiddlleware");
-// const defaultTitle  = require("./middlewares/defaultTitle");
-// const trimBody = require("./middlewares/trimBody");
+const { auth } = require("./middlewares/authMiddleware");
+const defaultTitle  = require("./middlewares/defaultTitle");
 
 const app = express();
 
@@ -16,12 +14,11 @@ app.use("/static", express.static("static"));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
-// app.use(defaultTitle("Shared Trip"));
+//TO CHECK -> title
+app.use(defaultTitle("Real Estate"));
 
-// app.use(trimBody())
-// app.use(auth);
+app.use(auth);
 app.use(routes);
-// app.use(errorHandler);
 
 initializeDatabase()
   .then(() => {

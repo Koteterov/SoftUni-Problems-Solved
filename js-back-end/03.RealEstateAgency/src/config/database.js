@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//TO CHECK...
 const connectionString = "mongodb://localhost:27017/realEstate";
 
 exports.initializeDatabase = () => {

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const housingSchema = new mongoose.Schema({
+const itemSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Name must be filled in!"],
@@ -56,6 +56,6 @@ const housingSchema = new mongoose.Schema({
   ],
 });
 
-const Housing = mongoose.model("Housing", housingSchema);
+const Item = mongoose.model("Item", itemSchema);
 
-module.exports = Housing;
+module.exports = Item;
