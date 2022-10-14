@@ -6,14 +6,15 @@ const User = require("../models/User");
 const { SECTRET, SALT_ROUNDS } = require("../config/constants");
 
 exports.register = async ({ email, password, gender }) => {
-
-  const existingUser = await User.findOne({ email: new RegExp(`^${email}$`, 'i') });
-
+  // const existingUser = await User.findOne({ email: new RegExp(`^${email}$`, 'i') });
+  const existingUser = await User.findOne({ email }).collation({
+    locale: "en",
+    strength: 2,
+  });
 
   if (existingUser) {
-    throw new Error("This user already exists!")
+    throw new Error("This user already exists!");
   }
-
 
   let hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
@@ -39,7 +40,6 @@ exports.login = async ({ email, password }) => {
   }
   return user;
 };
-
 
 exports.createToken = (user) => {
   const payload = { _id: user._id, email: user.email };

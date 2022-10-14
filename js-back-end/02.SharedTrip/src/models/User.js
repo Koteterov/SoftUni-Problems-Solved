@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
-    required: true,
+    required: [true, "Gender must be filled in!"],
     enum: ["male", "female"],
   },
 
@@ -24,6 +24,15 @@ const userSchema = new mongoose.Schema({
   ],
 });
 
+userSchema.index(
+  { email: 1 },
+  {
+    collation: {
+      locale: "en",
+      strength: 2,
+    },
+  }
+);
 
 const User = mongoose.model("User", userSchema);
 
