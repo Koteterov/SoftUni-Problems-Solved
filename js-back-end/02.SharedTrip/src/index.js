@@ -6,6 +6,7 @@ const { initializeDatabase } = require("./config/database");
 const { auth } = require("./middlewares/authMiddleware");
 const { errorHandler } = require("./middlewares/errorMiddlleware");
 const defaultTitle  = require("./middlewares/defaultTitle");
+const trimBody = require("./middlewares/trimBody");
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(defaultTitle("Shared Trip"));
 
+app.use(trimBody())
 app.use(auth);
 app.use(routes);
 app.use(errorHandler);

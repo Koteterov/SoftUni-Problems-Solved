@@ -19,11 +19,11 @@ router.post("/register", async (req, res) => {
       throw new Error("Invalid email!");
     }
 
-    if (req.body.password < 4) {
+    if (req.body.password.trim().length < 4) {
       throw new Error("Password should be at least 4 characters long!");
     }
 
-    if (req.body.password != req.body.rePassword) {
+    if (req.body.password.trim() != req.body.rePassword.trim()) {
       throw new Error("Passwords don't match!");
     }
 
