@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+
+    <!-- Do not forget to change the path to the css file -->
+    <link href="/static/css/style.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+
+
+    <div id="box">
+
+
+        {{#if error}}
+        <div>
+            <div class="error-container">
+                {{#each error}}
+                <p>{{this}}</p>
+                {{/each}}
+            </div>
+        </div>
+
+        {{/if}}
+
+
+
+        <nav>
+            <!-- Do not forget to change the path to the image -->
+            <img src="/static/img/logo.png" alt="logo">
+
+            <ul class="menu">
+                {{#if user}}
+                <!-- Logged users -->
+                <li><a href="/">Home</a></li>
+                <li><a href="/items">All Posts</a></li>
+                <li><a href="/create">Create Post</a></li>
+                <li><a href="/my-items">Posts of {{user.email}}</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
+
+                <!-- Guest users -->
+                {{else}}
+                <li><a href="/">Home</a></li>
+                <li><a href="/items">All Posts</a></li>
+                <li><a href="/auth/register">Register</a></li>
+                <li><a href="/auth/login">Login</a></li>
+                {{/if}}
+            </ul>
+
+        </nav>
+
+        <main>
+
+            {{{body}}}
+
+        </main>
+
+
+        <footer>
+            © Js Back-End Exam 2021
+        </footer>
+    </div>
+
+</body>
+
+</html>
