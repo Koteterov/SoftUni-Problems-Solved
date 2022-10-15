@@ -19,7 +19,12 @@ const itemSchema = new mongoose.Schema({
   date: {
     type: String,
     required: [true, "Date must be filled in!"],
-    length: [10, "Date should be is 10 characters!"],
+    validate: {
+      validator: function (name) {
+        return name.length == 10;
+      },
+      message: "Date should be is 10 characters!",
+    },
   },
   image: {
     type: String,
@@ -44,7 +49,7 @@ const itemSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
-  rating: [0]
+  rating: [0],
 });
 
 const Item = mongoose.model("Item", itemSchema);
@@ -69,6 +74,3 @@ module.exports = Item;
 // •	The Date should be exactly 10 characters - "02.02.2021"
 // •	The Wildlife Image should start with http:// or https://.
 // •	The Description should be a minimum of 8 characters long.
-
-
-
