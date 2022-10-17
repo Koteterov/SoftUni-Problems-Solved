@@ -2,6 +2,7 @@ const Item = require("../models/Item");
 
 exports.create = (item) => Item.create(item);
 exports.getAll = () => Item.find();
+exports.getLastThree = () => Item.find().sort({ _id: -1 }).limit(3);
 exports.getOne = (itemId) => Item.findById(itemId);
 exports.edit = (itemId, itemData) =>
   Item.findByIdAndUpdate(itemId, itemData, { runValidators: true });

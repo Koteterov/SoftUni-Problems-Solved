@@ -31,22 +31,23 @@
             <ul>
                 <!-- Guest users and Logged users -->
                 <li><a href="/items">Housing for rent</a></li>
-                <!-- Guest users -->
-                <li><a href="/auth/login">Login</a></li>
-                <li><a href="/auth/register">Register</a></li>
+                {{#if user}}
                 <!-- Logged users -->
                 <li><a href="/create">Create offer</a></li>
                 <li><a href="/search">Search</a></li>
                 <li><a href="/auth/logout">Logout</a></li>
+
+                {{else}}
+                <!-- Guest users -->
+                <li><a href="/auth/login">Login</a></li>
+                <li><a href="/auth/register">Register</a></li>
+                {{/if}}
             </ul>
         </nav>
 
         <main>
             {{{body}}}
         </main>
-
-
-
 
         <footer>
             © 2021

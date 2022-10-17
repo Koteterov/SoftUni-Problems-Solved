@@ -3,9 +3,7 @@ const authService = require("../services/authService");
 
 const validator = require("validator");
 
-
 const { isGuest, isUser } = require("../middlewares/guardMiddlewares");
-
 const { SESSION_NAME } = require("../config/constants");
 
 router.get("/register", isUser, (req, res) => {

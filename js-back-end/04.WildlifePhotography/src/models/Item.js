@@ -49,7 +49,11 @@ const itemSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
-  rating: [0],
+
+  rating: {
+    type: [Number],
+    default: 0
+  },
 });
 
 const Item = mongoose.model("Item", itemSchema);
