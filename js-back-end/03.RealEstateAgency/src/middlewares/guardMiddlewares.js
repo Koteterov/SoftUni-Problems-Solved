@@ -12,4 +12,3 @@ exports.isUser = (req, res, next) => {
   }
   next();
 };
-

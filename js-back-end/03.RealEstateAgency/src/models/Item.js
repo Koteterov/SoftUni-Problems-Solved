@@ -9,10 +9,11 @@ const itemSchema = new mongoose.Schema({
   type: {
     type: String,
     required: [true, "Type must be filled in!"],
-    enum: {
-      values: ["Apartment", "Villa", "House"],
-      message: "Please choose between Apartment, Villa and House",
-    },
+    // // In case of type requirement:
+    // enum: {
+    //   values: ["Apartment", "Villa", "House"],
+    //   message: "Please choose between Apartment, Villa and House",
+    // },
   },
   year: {
     type: Number,
@@ -41,7 +42,7 @@ const itemSchema = new mongoose.Schema({
   availablePieces: {
     type: Number,
     required: [true, "Available pieces must be filled in!"],
-    min: [1, "Min is 1"],
+    min: [0, "Min is 0"],
     max: [10, 'Max is 10']
   },
   owner: {
