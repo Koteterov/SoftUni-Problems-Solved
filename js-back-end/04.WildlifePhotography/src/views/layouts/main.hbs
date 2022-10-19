@@ -33,18 +33,16 @@
             <img src="/static/img/logo.png" alt="logo">
 
             <ul class="menu">
-                {{#if user}}
-                <!-- Logged users -->
                 <li><a href="/">Home</a></li>
                 <li><a href="/items">All Posts</a></li>
+                {{#if user}}
+                <!-- Logged users -->
                 <li><a href="/create">Create Post</a></li>
                 <li><a href="/my-items">Posts of {{user.email}}</a></li>
                 <li><a href="/auth/logout">Logout</a></li>
 
                 <!-- Guest users -->
                 {{else}}
-                <li><a href="/">Home</a></li>
-                <li><a href="/items">All Posts</a></li>
                 <li><a href="/auth/register">Register</a></li>
                 <li><a href="/auth/login">Login</a></li>
                 {{/if}}

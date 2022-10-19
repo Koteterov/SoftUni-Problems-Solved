@@ -1,31 +1,29 @@
 const router = require("express").Router();
 
-// const tripService = require("../services/tripService");
-// const userService = require("../services/userService");
+const itemService = require("../services/itemService");
 
-// const { isGuest } = require("../middlewares/guardMiddlewares");
-// const errorMapper  = require("../util/errorMapper");
+const { isGuest } = require("../middlewares/guardMiddlewares");
+const errorMapper  = require("../util/errorMapper");
 
-router.get("/", (req, res) => {
-  res.locals.title = "Cteate"
+router.get("/", isGuest, (req, res) => {
+  res.locals.title = "Create"
   res.render("create");
 });
 
-// router.post("/", isGuest, async (req, res) => {
-//   const data = req.body
+router.post("/", isGuest, async (req, res) => {
+  const data = req.body
 
   
-//   try {
-//     const createdTrip = await tripService.create({...data, creator: req.user._id});
-//     await userService.addTrip(req.user._id, createdTrip)
+  try {
+    await itemService.create({...data, owner: req.user._id});
     
-//     res.redirect("/trip");
+    res.redirect("/items");
     
-//   } catch (err) {
+  } catch (err) {
 
-//     const error = errorMapper(err)
-//     res.status(400).render("trip-create", { data, error });
-//   }
-// });
+    const error = errorMapper(err)
+    res.status(400).render("create", { data, error });
+  }
+});
 
 module.exports = router;

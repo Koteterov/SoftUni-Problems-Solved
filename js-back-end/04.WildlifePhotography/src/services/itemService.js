@@ -7,3 +7,17 @@ exports.edit = (itemId, itemData) =>
   Item.findByIdAndUpdate(itemId, itemData, { runValidators: true });
 exports.delete = (itemId) => Item.findByIdAndDelete(itemId);
 
+exports.upVote = async (itemId, userId) => {
+  const item = await Item.findById(itemId);
+  item.votes.push(userId);
+  item.rating ++
+  await item.save();
+  return item;
+};
+exports.downVote = async (itemId, userId) => {
+  const item = await Item.findById(itemId);
+  item.votes.push(userId);
+  item.rating --
+  await item.save();
+  return item;
+};

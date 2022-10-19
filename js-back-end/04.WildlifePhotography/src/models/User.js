@@ -5,11 +5,21 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Name must be filled in!"],
     minLength: [3, "Min length is 3 characters!"],
+    validate: {
+      validator: /^[A-Za-z]+$/i,
+      message: "Only lattin letter accepted",
+    },
+
   },
   lastName: {
     type: String,
     required: [true, "Name must be filled in!"],
     minLength: [5, "Min length is 5 characters!"],
+    validate: {
+      validator: /^[A-Za-z]+$/i,
+      message: "Only lattin letter accepted",
+    },
+
   },
 
   email: {

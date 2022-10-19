@@ -23,7 +23,7 @@ const itemSchema = new mongoose.Schema({
       validator: function (name) {
         return name.length == 10;
       },
-      message: "Date should be is 10 characters!",
+      message: "Date should be 10 characters!",
     },
   },
   image: {
@@ -51,8 +51,8 @@ const itemSchema = new mongoose.Schema({
   ],
 
   rating: {
-    type: [Number],
-    default: 0
+    type: Number,
+    default: 0,
   },
 });
 

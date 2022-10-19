@@ -6,6 +6,9 @@ const validator = require("validator");
 const { isGuest, isUser } = require("../middlewares/guardMiddlewares");
 const { SESSION_NAME } = require("../config/constants");
 
+const errorMapper = require("../util/errorMapper");
+
+
 router.get("/register", isUser, (req, res) => {
   res.locals.title = "Register";
   res.render("auth/register");
@@ -36,7 +39,7 @@ router.post("/register", async (req, res) => {
     res.redirect("/");
   } catch (err) {
     const userData = req.body;
-    const error = [err.message];
+    const error = errorMapper(err);
 
     res.status(400).render("auth/register", { userData, error });
   }
@@ -60,7 +63,7 @@ router.post("/login", async (req, res) => {
     res.redirect("/");
   } catch (err) {
     const userData = req.body;
-    const error = [err.message];
+    const error = errorMapper(err);
     res.status(400).render("auth/login", { userData, error });
   }
 });
