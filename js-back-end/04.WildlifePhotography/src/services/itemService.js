@@ -21,3 +21,5 @@ exports.downVote = async (itemId, userId) => {
   await item.save();
   return item;
 };
+
+exports.getOwnItems = (userId) => Item.find({owner: userId})
