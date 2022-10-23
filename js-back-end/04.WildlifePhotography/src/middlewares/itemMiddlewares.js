@@ -8,7 +8,6 @@ exports.preloadItem = async (req, res, next) => {
   next();
 };
 
-//TO CHECK -> owner in Item Model
 exports.isAuthor = (req, res, next) => {
   if (req.item.owner != req.user._id) {
     const error = ["Not authorized!"];
