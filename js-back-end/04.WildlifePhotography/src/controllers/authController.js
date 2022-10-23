@@ -34,7 +34,6 @@ router.post("/register", async (req, res) => {
     if (!token) {
       throw new Error("Invalid user or password!");
     }
-    // TO CHECK -> if needed to log in
     res.cookie(SESSION_NAME, token, { httpOnly: true });
     res.redirect("/");
   } catch (err) {
