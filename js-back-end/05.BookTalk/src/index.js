@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const { initializeDatabase } = require("./config/database");
 const { auth } = require("./middlewares/authMiddleware");
-const defaultTitle  = require("./middlewares/defaultTitle");
+const defaultTitle = require("./middlewares/defaultTitle");
 
 const app = express();
 
@@ -25,4 +25,5 @@ initializeDatabase()
   })
   .catch((err) => {
     console.log("Cannot connect to DB", err);
+    process.exit(1);
   });
