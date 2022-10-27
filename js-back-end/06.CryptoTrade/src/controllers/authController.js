@@ -19,12 +19,10 @@ router.post("/register", async (req, res) => {
       throw new Error("Invalid email!");
     }
 
-    // TO CHECK -> length
     if (req.body.password.trim().length < 4) {
       throw new Error("Password should be at least 4 characters long!");
     }
 
-    // TO CHECK -> rePassword in register template
     if (req.body.password.trim() != req.body.rePassword.trim()) {
       throw new Error("Passwords don't match!");
     }
@@ -35,7 +33,6 @@ router.post("/register", async (req, res) => {
     if (!token) {
       throw new Error("Invalid user or password!");
     }
-    // TO CHECK -> if needed to log in
     res.cookie(SESSION_NAME, token, { httpOnly: true });
     res.redirect("/");
   } catch (err) {

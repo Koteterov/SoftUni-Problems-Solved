@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page - Crypto Web</title>
+    <title>{{title}}</title>
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 
@@ -16,18 +16,21 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/items">All Crypto</a></li>
+                {{#if user}}
+
                 <li><a href="/search">Search</a></li>
                 <li><a href="/create">Create Offer</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
+                {{else}}
                 <li><a href="/auth/login">Login</a></li>
                 <li><a href="/auth/register">Register</a></li>
-                <li><a href="/auth/logout">Logout</a></li>
+                {{/if}}
+
             </ul>
         </nav>
     </header>
 
     <main>
-        <!-- In case of error, you should display div with class "errorContainer" -->
-        <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
         {{#if error}}
 
         <div>
@@ -54,63 +57,3 @@
 
 
 
-{{!--
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <!-- Do not forget to change the path to the css file -->
-    <title>{{title}}</title>
-    <link href="/static/css/style.css" type="text/css" rel="stylesheet">
-</head>
-
-<body>
-
-    <div id="box">
-
-        <!-- In case of error, you should display div with class "errorContainer" -->
-        <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
-
-        {{#if error}}
-        <div>
-            <div class="errorContainer">
-                {{#each error}}
-                <p>{{this}}</p>
-                {{/each}}
-            </div>
-        </div>
-
-        {{/if}}
-
-        <nav>
-            <a href="/">Home</a>
-            <ul>
-                {{#if user}}
-                <!-- Logged users -->
-                <li><a href="/create">Create offer</a></li>
-                <li><a href="/search">Search</a></li>
-                <li><a href="/auth/logout">Logout</a></li>
-
-                {{else}}
-                <!-- Guest users and Logged users -->
-                <li><a href="/items">Housing for rent</a></li>
-                <!-- Guest users -->
-                <li><a href="/auth/login">Login</a></li>
-                <li><a href="/auth/register">Register</a></li>
-                {{/if}}
-            </ul>
-        </nav>
-
-        <main>
-            {{{body}}}
-        </main>
-
-        <footer>
-            © 2021
-        </footer>
-    </div>
-
-</body>
-
-</html> --}}

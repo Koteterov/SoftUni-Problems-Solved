@@ -14,8 +14,7 @@ app.use("/static", express.static("static"));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
-//TO CHECK -> title. Also in controllers...
-app.use(defaultTitle("Real Estate"));
+app.use(defaultTitle("Crypto Trade"));
 
 app.use(auth);
 app.use(routes);

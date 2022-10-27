@@ -5,8 +5,7 @@ const User = require("../models/User");
 
 const { SECTRET, SALT_ROUNDS } = require("../config/constants");
 
-//TO CHECK -> name...
-exports.register = async ({ name, email, password }) => {
+exports.register = async ({ username, email, password }) => {
   const existingUser = await User.findOne({ email }).collation({
     locale: "en",
     strength: 2,
@@ -18,9 +17,8 @@ exports.register = async ({ name, email, password }) => {
 
   let hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
-  //TO CHECK -> name...
   let createdUser = User.create({
-    name,
+    username,
     email,
     password: hashedPassword,
   });

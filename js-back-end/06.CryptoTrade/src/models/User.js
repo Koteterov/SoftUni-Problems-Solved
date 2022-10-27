@@ -1,26 +1,21 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
-    required: [true, "Name must be filled in!"],
-    validate: {
-        validator: /(^[A-Z][a-z]+ [A-Z][a-z]+)/,
-        message: "Invalid name!"
-    },
+    required: [true, "Username must be filled in!"],
+    minLength: [5, "Username must be at least 5 characters"],
   },
   email: {
     type: String,
-    required: [true, "Username must be filled in!"],
-    minLength: [5, "Min length is 5 characters!"],
+    required: [true, "Email must be filled in!"],
+    minLength: [10, "Min length is 10 characters!"],
     unique: true,
-
   },
   password: {
     type: String,
     required: [true, "Password must be filled in!"],
   },
-
 });
 
 userSchema.index(
@@ -36,3 +31,4 @@ userSchema.index(
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
+
